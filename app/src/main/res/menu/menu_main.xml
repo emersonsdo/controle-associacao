@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item android:id="@+id/im_cadastrar"
+        android:title="@string/cadastrar_associado"
+        app:showAsAction="ifRoom"
+        android:icon="@android:drawable/ic_menu_add"/>
+
+    <item android:id="@+id/im_configuracao"
+        android:title="@string/configurar"
+        app:showAsAction="ifRoom"
+        android:icon="@android:drawable/ic_menu_manage"/>
+
+
+</menu>

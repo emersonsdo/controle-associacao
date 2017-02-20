@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">ControleAssociados</string>
+    <string name="cadastrar_associado">Novo Associado</string>
+    <string name="configurar">Configuraçoes</string>
+    <string name="hint_nome">Nome do associado</string>
+    <string name="valor_mensalidade_label">Valor da mensalidade: </string>
+    <string name="check_em_atraso">Associado com mensalidade em atraso?</string>
+    <string name="hint_data_nascimento">Data de nascimento</string>
+    <string name="tx_nascimento">Nascimento: </string>
+    <string name="hint_data_ultimo_pagamento">Ultimo pagamento</string>
+    <string name="tx_ultimo_pagamento">Ultimo pagamento: </string>
+    <string name="hint_data_associacao">Data de associaçao</string>
+    <string name="tx_data_associacao">Data de associacao: </string>
+</resources>
