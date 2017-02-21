@@ -123,7 +123,7 @@ public class AssociadoActivity extends AppCompatActivity {
                 ", " + AssociadoContract.Associado.COLUMN_NAME_DATA_ULTIMO_PAGAMENTO +
                 ", " + AssociadoContract.Associado.COLUMN_NAME_DATA_ASSOCIACAO +
                 " FROM " + AssociadoContract.Associado.TABLE_NAME +
-                " WHERE " + AssociadoContract.Associado.COLUMN_NAME_NOME + " = " + nomeAssociadoEditado;
+                " WHERE " + AssociadoContract.Associado.COLUMN_NAME_NOME + " = '" + nomeAssociadoEditado +"'";
 
 
         Cursor cursor = db.rawQuery(query, null);
@@ -132,20 +132,26 @@ public class AssociadoActivity extends AppCompatActivity {
 
         while (cursor.moveToNext()) {
 
-            idAssociadoEditado = cursor.getString(1);
+            idAssociadoEditado = cursor.getString(0);
+            Log.i("ASSOCIADO_ACTIVITY", "Cursor 1: " + cursor.getString(1));
+            Log.i("ASSOCIADO_ACTIVITY", "Cursor 2: " + cursor.getString(2));
+            Log.i("ASSOCIADO_ACTIVITY", "Cursor 3: " + cursor.getString(3));
+            Log.i("ASSOCIADO_ACTIVITY", "Cursor 4: " + cursor.getString(4));
+            Log.i("ASSOCIADO_ACTIVITY", "Cursor 5: " + cursor.getString(5));
+            Log.i("ASSOCIADO_ACTIVITY", "Cursor 0: " + cursor.getString(0));
 
             Associado associado = new Associado();
-            associado.nome = cursor.getString(2);
+            associado.nome = cursor.getString(1);
 
-            if (cursor.getString(3).equalsIgnoreCase("1")) {
+            if (cursor.getString(2).equalsIgnoreCase("1")) {
                 associado.emAtraso = true;
             } else {
                 associado.emAtraso = false;
             }
 
-            if (cursor.getString(4) != null && !cursor.getString(4).isEmpty()) {
+            if (cursor.getString(3) != null && !cursor.getString(3).isEmpty()) {
                 try {
-                    Date dataNascimento = format.parse(cursor.getString(4));
+                    Date dataNascimento = format.parse(cursor.getString(3));
                     associado.dataNascimento = dataNascimento;
                 } catch (ParseException e) {
                     Log.i("ASSOCIADO_ACTIVITY", "Erro no parser da data de nascimento!");
@@ -153,9 +159,9 @@ public class AssociadoActivity extends AppCompatActivity {
                 }
             }
 
-            if (cursor.getString(5) != null && !cursor.getString(5).isEmpty()) {
+            if (cursor.getString(4) != null && !cursor.getString(4).isEmpty()) {
                 try {
-                    Date dataUltimoPagamento = format.parse(cursor.getString(5));
+                    Date dataUltimoPagamento = format.parse(cursor.getString(4));
                     associado.dataUltimoPagamento = dataUltimoPagamento;
                 } catch (ParseException e) {
                     Log.i("ASSOCIADO_ACTIVITY", "Erro no parser da data do ultimo pagamento!");
@@ -163,15 +169,17 @@ public class AssociadoActivity extends AppCompatActivity {
                 }
             }
 
-            if (cursor.getString(6) != null && !cursor.getString(6).isEmpty()) {
+            if (cursor.getString(5) != null && !cursor.getString(5).isEmpty()) {
                 try {
-                    Date dataAssociacao = format.parse(cursor.getString(6));
+                    Date dataAssociacao = format.parse(cursor.getString(5));
                     associado.dataAssociacao = dataAssociacao;
                 } catch (ParseException e) {
                     Log.i("ASSOCIADO_ACTIVITY", "Erro no parser da data de associaçao!");
                     e.printStackTrace();
                 }
             }
+
+            listAssociados.add(associado);
         }
         cursor.close();
         db.close();
@@ -203,7 +211,7 @@ public class AssociadoActivity extends AppCompatActivity {
 
         if(values.get(AssociadoContract.Associado._ID) != null){
             numberOfRowAffected = db.update(AssociadoContract.Associado.TABLE_NAME, values,
-                    "WHERE " + AssociadoContract.Associado._ID + " = " + values.get(AssociadoContract.Associado._ID), null);
+                    AssociadoContract.Associado._ID + " = " + values.get(AssociadoContract.Associado._ID), null);
 
             if(numberOfRowAffected == 0 || numberOfRowAffected > 1){
                 setResult(Activity.RESULT_CANCELED, intent);

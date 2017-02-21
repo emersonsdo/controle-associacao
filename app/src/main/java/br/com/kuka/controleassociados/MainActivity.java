@@ -112,6 +112,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void editarAssociado(View view){
+//        int viewId = view.getId();
+
+
         TextView tvNome = (TextView) findViewById(R.id.tv_nome);
         String nome = tvNome.getText().toString();
 
