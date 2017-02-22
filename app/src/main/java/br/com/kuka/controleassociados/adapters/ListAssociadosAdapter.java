@@ -43,17 +43,29 @@ public class ListAssociadosAdapter extends BaseAdapter {
     }
 
     public ArrayList<Associado> getListaAssociados(){
-
-        String query = "SELECT " + AssociadoContract.Associado._ID +
-                ", " + AssociadoContract.Associado.COLUMN_NAME_NOME +
-                ", " + AssociadoContract.Associado.COLUMN_NAME_ATRASO +
-                ", " + AssociadoContract.Associado.COLUMN_NAME_DATA_NASCIMENTO +
-                ", " + AssociadoContract.Associado.COLUMN_NAME_DATA_ULTIMO_PAGAMENTO +
-                ", " + AssociadoContract.Associado.COLUMN_NAME_DATA_ASSOCIACAO +
-                " FROM " + AssociadoContract.Associado.TABLE_NAME;
-
         SQLiteDatabase db = dbAssociadoHelper.getReadableDatabase();
-        Cursor cursor = db.rawQuery(query, null);
+
+//        String query = "SELECT " + AssociadoContract.Associado._ID +
+//                ", " + AssociadoContract.Associado.COLUMN_NAME_NOME +
+//                ", " + AssociadoContract.Associado.COLUMN_NAME_ATRASO +
+//                ", " + AssociadoContract.Associado.COLUMN_NAME_DATA_NASCIMENTO +
+//                ", " + AssociadoContract.Associado.COLUMN_NAME_DATA_ULTIMO_PAGAMENTO +
+//                ", " + AssociadoContract.Associado.COLUMN_NAME_DATA_ASSOCIACAO +
+//                " FROM " + AssociadoContract.Associado.TABLE_NAME;
+//
+//        Cursor cursor = db.rawQuery(query, null);
+
+        String [] dadosAssociado = {
+                AssociadoContract.Associado._ID,
+                AssociadoContract.Associado.COLUMN_NAME_NOME,
+                AssociadoContract.Associado.COLUMN_NAME_ATRASO,
+                AssociadoContract.Associado.COLUMN_NAME_DATA_NASCIMENTO,
+                AssociadoContract.Associado.COLUMN_NAME_DATA_ULTIMO_PAGAMENTO,
+                AssociadoContract.Associado.COLUMN_NAME_DATA_ASSOCIACAO
+        };
+
+        Cursor cursor = db.query(AssociadoContract.Associado.TABLE_NAME,
+                dadosAssociado, null, null, null, null, null);
 
         listaAssociados = new ArrayList<>();
 
@@ -124,8 +136,8 @@ public class ListAssociadosAdapter extends BaseAdapter {
     }
 
     @Override
-    public Associado getItem(int i) {
-        return listaAssociados.get(i);
+    public Associado getItem(int position) {
+        return listaAssociados.get(position);
     }
 
     @Override

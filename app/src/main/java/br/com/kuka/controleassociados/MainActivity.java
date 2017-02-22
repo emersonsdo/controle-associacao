@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -39,6 +40,13 @@ public class MainActivity extends AppCompatActivity {
         associadosAdapter = new ListAssociadosAdapter(this);
         lvAssociados = (ListView) findViewById(R.id.lv_associados);
         lvAssociados.setAdapter(associadosAdapter);
+
+        lvAssociados.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                editarAssociado(view, position);
+            }
+        });
     }
 
     @Override
@@ -111,18 +119,11 @@ public class MainActivity extends AppCompatActivity {
         associadosAdapter.getListaAssociados();
     }
 
-    public void editarAssociado(View view){
-//        int viewId = view.getId();
-
-
-        TextView tvNome = (TextView) findViewById(R.id.tv_nome);
-        String nome = tvNome.getText().toString();
-
-//        DBAssociadoHelper dbHelper = new DBAssociadoHelper(this);
-//        String id = dbHelper.obterIdPorNome(nome);
+    public void editarAssociado(View view, int position){
+        Associado associado = associadosAdapter.getItem(position);
 
         Intent intentEditar = new Intent(this, AssociadoActivity.class);
-        intentEditar.putExtra("NOME", nome);
+        intentEditar.putExtra("NOME", associado.nome);
         startActivityForResult(intentEditar, CODIGO_REQUEST_EDITAR);
     }
 
