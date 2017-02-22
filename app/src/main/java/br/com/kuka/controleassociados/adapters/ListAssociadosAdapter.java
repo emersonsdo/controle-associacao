@@ -109,8 +109,6 @@ public class ListAssociadosAdapter extends BaseAdapter {
                 }
             }
 
-//            produto.categoria = cursor.getString(2);
-//            produto.valor = cursor.getString(3);
             listaAssociados.add(associado);
         }
 
@@ -122,6 +120,17 @@ public class ListAssociadosAdapter extends BaseAdapter {
 
     public void addAssociado(Associado associado){
         listaAssociados.add(associado);
+    }
+
+    public void deletarAssociado(Long idDeletado){
+
+        for(Associado associado : listaAssociados){
+            if(associado._ID == idDeletado){
+                Log.i("ADAPTER", "ID do Associado removido: " + associado._ID);
+                listaAssociados.remove(associado);
+                break;
+            }
+        }
     }
 
     @Override

@@ -47,6 +47,14 @@ public class MainActivity extends AppCompatActivity {
                 editarAssociado(view, position);
             }
         });
+
+        Intent intent = getIntent();
+        if(intent != null){
+            Long idDeletado = intent.getLongExtra("ID_DELETADO", -100);
+            if(idDeletado >= 0){
+                deletar(idDeletado);
+            }
+        }
     }
 
     @Override
@@ -96,10 +104,10 @@ public class MainActivity extends AppCompatActivity {
 
                 associadosAdapter.addAssociado(new Associado(nomeCadastrado, emAtraso, dataNascimento, dataUltimoPagamento, dataAssociacao));
 
-                Toast toast = Toast.makeText(this, "Associado Cadastrado", Toast.LENGTH_LONG);
+                Toast toast = Toast.makeText(this, "Dados salvos com sucesso", Toast.LENGTH_LONG);
                 toast.show();
 
-                imprimirDados();
+//                imprimirDados();
             }else if(requestCode == CODIGO_REQUEST_CONFIGURAR) {
                 Toast toast = Toast.makeText(this, "Valor da mensalidade: " + data.getStringExtra("MENSALIDADE"), Toast.LENGTH_LONG);
                 toast.show();
@@ -109,14 +117,10 @@ public class MainActivity extends AppCompatActivity {
         }else{
             Log.i("MAIN", "Houve um erro na excecuçao da tarefa");
             if(requestCode == CODIGO_REQUEST_CADASTRAR) {
-                Toast toast = Toast.makeText(this, "Erro no cadastro do associado!", Toast.LENGTH_LONG);
+                Toast toast = Toast.makeText(this, "Erro ao salvar dados", Toast.LENGTH_LONG);
                 toast.show();
             }
         }
-    }
-
-    private void imprimirDados() {
-        associadosAdapter.getListaAssociados();
     }
 
     public void editarAssociado(View view, int position){
@@ -126,5 +130,14 @@ public class MainActivity extends AppCompatActivity {
         intentEditar.putExtra("NOME", associado.nome);
         startActivityForResult(intentEditar, CODIGO_REQUEST_EDITAR);
     }
+
+    public void deletar(Long idDeletado){
+        associadosAdapter.deletarAssociado(idDeletado);
+//        imprimirDados();
+    }
+
+//    private void imprimirDados() {
+//        associadosAdapter.getListaAssociados();
+//    }
 
 }

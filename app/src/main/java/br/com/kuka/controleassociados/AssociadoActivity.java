@@ -88,86 +88,6 @@ public class AssociadoActivity extends AppCompatActivity {
 
     private void editar(Intent intent) {
         String nomeAssociadoEditado = intent.getStringExtra("NOME");
-//        DBAssociadoHelper dbHelper = new DBAssociadoHelper(this);
-//        SQLiteDatabase db = dbHelper.getReadableDatabase();
-
-//        String query = "SELECT " + AssociadoContract.Associado._ID +
-//                ", " + AssociadoContract.Associado.COLUMN_NAME_NOME +
-//                ", " + AssociadoContract.Associado.COLUMN_NAME_ATRASO +
-//                ", " + AssociadoContract.Associado.COLUMN_NAME_DATA_NASCIMENTO +
-//                ", " + AssociadoContract.Associado.COLUMN_NAME_DATA_ULTIMO_PAGAMENTO +
-//                ", " + AssociadoContract.Associado.COLUMN_NAME_DATA_ASSOCIACAO +
-//                " FROM " + AssociadoContract.Associado.TABLE_NAME +
-//                " WHERE " + AssociadoContract.Associado.COLUMN_NAME_NOME + " = '" + nomeAssociadoEditado +"'";
-//
-//
-//        Cursor cursor = db.rawQuery(query, null);
-
-//        String [] dadosAssociado = {
-//                AssociadoContract.Associado._ID,
-//                AssociadoContract.Associado.COLUMN_NAME_NOME,
-//                AssociadoContract.Associado.COLUMN_NAME_ATRASO,
-//                AssociadoContract.Associado.COLUMN_NAME_DATA_NASCIMENTO,
-//                AssociadoContract.Associado.COLUMN_NAME_DATA_ULTIMO_PAGAMENTO,
-//                AssociadoContract.Associado.COLUMN_NAME_DATA_ASSOCIACAO
-//        };
-//
-//        String whereClause = AssociadoContract.Associado.COLUMN_NAME_NOME+"=?";
-//        String [] whereArgs = {nomeAssociadoEditado};
-//
-//        Cursor cursor = db.query(AssociadoContract.Associado.TABLE_NAME,
-//                dadosAssociado, whereClause, whereArgs, null, null, null);
-//
-//        listAssociados = new ArrayList<>();
-//
-//        while (cursor.moveToNext()) {
-//
-//            idAssociadoEditado = cursor.getString(0);
-//
-//            Associado associado = new Associado();
-//            associado.nome = cursor.getString(1);
-//
-//            if (cursor.getString(2).equalsIgnoreCase("1")) {
-//                associado.emAtraso = true;
-//            } else {
-//                associado.emAtraso = false;
-//            }
-//
-//            if (cursor.getString(3) != null && !cursor.getString(3).isEmpty()) {
-//                try {
-//                    Date dataNascimento = format.parse(cursor.getString(3));
-//                    associado.dataNascimento = dataNascimento;
-//                } catch (ParseException e) {
-//                    Log.i("ASSOCIADO_ACTIVITY", "Erro no parser da data de nascimento!");
-//                    e.printStackTrace();
-//                }
-//            }
-//
-//            if (cursor.getString(4) != null && !cursor.getString(4).isEmpty()) {
-//                try {
-//                    Date dataUltimoPagamento = format.parse(cursor.getString(4));
-//                    associado.dataUltimoPagamento = dataUltimoPagamento;
-//                } catch (ParseException e) {
-//                    Log.i("ASSOCIADO_ACTIVITY", "Erro no parser da data do ultimo pagamento!");
-//                    e.printStackTrace();
-//                }
-//            }
-//
-//            if (cursor.getString(5) != null && !cursor.getString(5).isEmpty()) {
-//                try {
-//                    Date dataAssociacao = format.parse(cursor.getString(5));
-//                    associado.dataAssociacao = dataAssociacao;
-//                } catch (ParseException e) {
-//                    Log.i("ASSOCIADO_ACTIVITY", "Erro no parser da data de associaçao!");
-//                    e.printStackTrace();
-//                }
-//            }
-//
-//            listAssociados.add(associado);
-//        }
-//        cursor.close();
-//        db.close();
-//
         Associado associado = obterAssociadoPorNome(nomeAssociadoEditado);
 
         EditText etNome = (EditText) findViewById(R.id.et_nome);
@@ -186,13 +106,22 @@ public class AssociadoActivity extends AppCompatActivity {
         etAssociacao.setText(format.format(associado.dataAssociacao));
     }
 
-    private void deletar(View view){
+    public void deletar(View view){
         EditText etNome = (EditText) findViewById(R.id.et_nome);
         String nomeCadastrado = etNome.getText().toString();
 
         Associado associado = obterAssociadoPorNome(nomeCadastrado);
 
+        DBAssociadoHelper dbHelper = new DBAssociadoHelper(this);
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
 
+        db.execSQL("DELETE FROM "+ AssociadoContract.Associado.TABLE_NAME + " WHERE " +
+                AssociadoContract.Associado._ID + " = "+associado._ID+"");
+        db.close();
+
+        Intent intentDeletar = new Intent(this, MainActivity.class);
+        intentDeletar.putExtra("ID_DELETADO", associado._ID);
+        startActivity(intentDeletar);
     }
 
     private Associado obterAssociadoPorNome(String nomeAssociado){
@@ -218,10 +147,10 @@ public class AssociadoActivity extends AppCompatActivity {
         listAssociados = new ArrayList<>();
 
         while (cursor.moveToNext()) {
-
-            idAssociadoEditado = cursor.getString(0);
-
             Associado associado = new Associado();
+
+            associado._ID = Long.parseLong(cursor.getString(0));
+            idAssociadoEditado = String.valueOf(associado._ID);
             associado.nome = cursor.getString(1);
 
             if (cursor.getString(2).equalsIgnoreCase("1")) {
