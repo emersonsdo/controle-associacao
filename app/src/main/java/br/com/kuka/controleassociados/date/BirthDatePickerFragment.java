@@ -1,4 +1,4 @@
-package br.com.kuka.controleassociados;
+package br.com.kuka.controleassociados.date;
 
 import android.app.Dialog;
 import android.os.Bundle;
@@ -12,6 +12,8 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 
 import java.util.Calendar;
+
+import br.com.kuka.controleassociados.R;
 
 /**
  * Created by 01748913506 on 17/02/17.

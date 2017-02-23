@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -48,10 +49,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        Toolbar toolbar = (Toolbar) findViewById(R.id.main_toolbar);
+        setSupportActionBar(toolbar);
+
+        setTitle(R.string.titulo_main);
+
         Intent intent = getIntent();
         if(intent != null){
             Long idDeletado = intent.getLongExtra("ID_DELETADO", -100);
-            if(idDeletado >= 0){
+            if(idDeletado >= -1){
                 deletar(idDeletado);
             }
         }
@@ -76,12 +82,14 @@ public class MainActivity extends AppCompatActivity {
         switch (item.getItemId()){
             case R.id.im_cadastrar:
                 Intent intentCadastrar = new Intent(this, AssociadoActivity.class);
+                intentCadastrar.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 startActivityForResult(intentCadastrar, CODIGO_REQUEST_CADASTRAR);
 
                 return true;
             case R.id.im_configuracao:
                 Intent intentConfigurar = new Intent(this, ConfiguracaoActivity.class);
-                startActivityForResult(intentConfigurar, CODIGO_REQUEST_CONFIGURAR);
+                intentConfigurar.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                startActivity(intentConfigurar);
 
                 return true;
             default:
@@ -122,9 +130,9 @@ public class MainActivity extends AppCompatActivity {
                 toast.show();
 
 //                imprimirDados();
-            }else if(requestCode == CODIGO_REQUEST_CONFIGURAR) {
-                Toast toast = Toast.makeText(this, "Valor da mensalidade: " + data.getStringExtra("MENSALIDADE"), Toast.LENGTH_LONG);
-                toast.show();
+//            }else if(requestCode == CODIGO_REQUEST_CONFIGURAR) {
+//                Toast toast = Toast.makeText(this, "Valor da mensalidade: " + data.getStringExtra("MENSALIDADE"), Toast.LENGTH_LONG);
+//                toast.show();
             }else if(requestCode == CODIGO_REQUEST_EDITAR) {
 //                TODO
             }
@@ -146,7 +154,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void deletar(Long idDeletado){
-        associadosAdapter.deletarAssociado(idDeletado);
+        if(idDeletado == -1){
+            Toast toast = Toast.makeText(this, "Nada feito", Toast.LENGTH_LONG);
+            toast.show();
+        }else{
+            associadosAdapter.deletarAssociado(idDeletado);
+        }
 //        imprimirDados();
     }
 

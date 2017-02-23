@@ -9,79 +9,52 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="br.com.kuka.controleassociados.AssociadoActivity"
+    tools:context="br.com.kuka.controleassociados.GastoFixoActivity"
     android:orientation="vertical">
 
     <android.support.design.widget.TextInputLayout
-        android:id="@+id/til_nome"
+        android:id="@+id/til_descricao_gasto_fixo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp">
 
         <android.support.design.widget.TextInputEditText
-            android:id="@+id/et_nome"
+            android:id="@+id/et_descricao_gasto_fixo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:gravity="top"
-            android:hint="@string/hint_nome"
+            android:hint="@string/hint_descricao_gasto_fixo"
             android:inputType="textMultiLine"
             android:scrollbars="vertical" />
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
-        android:id="@+id/til_telefone"
+        android:id="@+id/til_valor_gasto_fixo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp">
 
         <android.support.design.widget.TextInputEditText
-            android:id="@+id/et_telefone"
+            android:id="@+id/et_valor_gasto_fixo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:gravity="top"
-            android:hint="@string/hint_telefone"
+            android:hint="@string/hint_valor_gasto_fixo"
             android:inputType="textMultiLine"
             android:scrollbars="vertical" />
     </android.support.design.widget.TextInputLayout>
-
-    <fragment
-        android:id="@+id/fg_data_nascimento"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:name="br.com.kuka.controleassociados.date.BirthDatePickerFragment"/>
-
-    <fragment
-        android:id="@+id/fg_data_ultimo_pagamento"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:name="br.com.kuka.controleassociados.date.LastPaymentDatePickerFragment"/>
-
-    <fragment
-        android:id="@+id/fg_data_associacao"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:name="br.com.kuka.controleassociados.date.AssociationDatePickerFragment"/>
-
-    <CheckBox
-        android:id="@+id/cb_em_atraso"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:clickable="false"
-        android:text="@string/check_em_atraso" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="1">
+        android:orientation="horizontal">
 
         <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fab_salvar"
+            android:id="@+id/fab_salvar_gasto_fixo"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_gravity="right"
             android:src="@android:drawable/ic_menu_save"
             app:fabSize="normal"
@@ -93,9 +66,9 @@
             android:onClick="salvar"/>
 
         <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fab_deletar"
+            android:id="@+id/fab_deletar_gasto_fixo"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_gravity="right"
             android:src="@android:drawable/ic_menu_delete"
             app:fabSize="normal"
@@ -106,4 +79,5 @@
             app:rippleColor="@android:color/transparent"
             android:onClick="deletar" />
     </LinearLayout>
+
 </LinearLayout>

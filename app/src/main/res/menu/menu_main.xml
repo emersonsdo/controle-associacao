@@ -11,6 +11,4 @@
         android:title="@string/configurar"
         app:showAsAction="ifRoom"
         android:icon="@android:drawable/ic_menu_manage"/>
-
-
 </menu>

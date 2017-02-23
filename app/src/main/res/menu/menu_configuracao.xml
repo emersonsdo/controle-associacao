@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item android:id="@+id/im_voltar"
+        android:title="@string/menu_voltar"
+        app:showAsAction="withText" />
+
+    <item android:id="@+id/im_novo_gasto_fixo"
+        android:title="@string/novo_gasto_fixo"
+        app:showAsAction="withText" />
+
+    <item android:id="@+id/im_novo_gasto_pontual"
+        android:title="@string/novo_gasto_pontual"
+        app:showAsAction="withText" />
+</menu>

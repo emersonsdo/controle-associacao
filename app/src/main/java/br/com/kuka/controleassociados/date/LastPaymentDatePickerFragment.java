@@ -1,10 +1,10 @@
-package br.com.kuka.controleassociados;
+package br.com.kuka.controleassociados.date;
 
-import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
+import android.app.DatePickerDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,15 +13,18 @@ import android.widget.EditText;
 
 import java.util.Calendar;
 
+import br.com.kuka.controleassociados.R;
+
 /**
  * Created by 01748913506 on 17/02/17.
  */
-public class AssociationDatePickerFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener{
+
+public class LastPaymentDatePickerFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener {
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_association_date, container);
+        View view = inflater.inflate(R.layout.fragment_last_payment, container);
         return view;
     }
 
@@ -39,7 +42,7 @@ public class AssociationDatePickerFragment extends DialogFragment implements Dat
 
     @Override
     public void onDateSet(DatePicker datePicker, int ano, int mes, int dia) {
-        EditText etDataAssociacao = (EditText) getActivity().findViewById(R.id.et_data_associacao);
-        etDataAssociacao.setText(dia+"/"+(mes+1)+"/"+ano);
+        EditText etUltimoPagamento = (EditText) getActivity().findViewById(R.id.et_data_ultimo_pagamento);
+        etUltimoPagamento.setText(dia+"/"+(mes+1)+"/"+ano);
     }
 }

@@ -12,7 +12,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -23,6 +22,9 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Locale;
 
+import br.com.kuka.controleassociados.date.AssociationDatePickerFragment;
+import br.com.kuka.controleassociados.date.BirthDatePickerFragment;
+import br.com.kuka.controleassociados.date.LastPaymentDatePickerFragment;
 import br.com.kuka.controleassociados.model.Associado;
 import br.com.kuka.controleassociados.model.AssociadoContract;
 import br.com.kuka.controleassociados.util.DBAssociadoHelper;
@@ -124,16 +126,22 @@ public class AssociadoActivity extends AppCompatActivity {
 
         Associado associado = obterAssociadoPorNome(nomeCadastrado);
 
-        DBAssociadoHelper dbHelper = new DBAssociadoHelper(this);
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        if(associado != null){
+            DBAssociadoHelper dbHelper = new DBAssociadoHelper(this);
+            SQLiteDatabase db = dbHelper.getWritableDatabase();
 
-        db.execSQL("DELETE FROM "+ AssociadoContract.Associado.TABLE_NAME + " WHERE " +
-                AssociadoContract.Associado._ID + " = "+associado._ID+"");
-        db.close();
+            db.execSQL("DELETE FROM "+ AssociadoContract.Associado.TABLE_NAME + " WHERE " +
+                    AssociadoContract.Associado._ID + " = "+associado._ID+"");
+            db.close();
 
-        Intent intentDeletar = new Intent(this, MainActivity.class);
-        intentDeletar.putExtra("ID_DELETADO", associado._ID);
-        startActivity(intentDeletar);
+            Intent intentDeletar = new Intent(this, MainActivity.class);
+            intentDeletar.putExtra("ID_DELETADO", associado._ID);
+            startActivity(intentDeletar);
+        }else{
+            Intent intentDeletar = new Intent(this, MainActivity.class);
+            intentDeletar.putExtra("ID_DELETADO", Long.parseLong("-1"));
+            startActivity(intentDeletar);
+        }
     }
 
     private Associado obterAssociadoPorNome(String nomeAssociado){
@@ -157,9 +165,10 @@ public class AssociadoActivity extends AppCompatActivity {
                 dadosAssociado, whereClause, whereArgs, null, null, null);
 
         listAssociados = new ArrayList<>();
+        Associado associado = null;
 
         while (cursor.moveToNext()) {
-            Associado associado = new Associado();
+            associado = new Associado();
 
             associado._ID = Long.parseLong(cursor.getString(0));
             idAssociadoEditado = String.valueOf(associado._ID);
@@ -206,13 +215,13 @@ public class AssociadoActivity extends AppCompatActivity {
             }
 
             associado.telefone = cursor.getString(5);
-
             listAssociados.add(associado);
         }
         cursor.close();
         db.close();
 
-        return listAssociados.get(0);
+//        TODO: rever while e retorno
+        return associado;
     }
 
     private void insert(ContentValues values){

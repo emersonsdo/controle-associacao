@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".BirthDatePickerFragment">
+    tools:context=".date.BirthDatePickerFragment">
 
     <android.support.design.widget.TextInputLayout
         android:id="@+id/til_data_nascimento"
