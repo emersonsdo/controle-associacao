@@ -48,19 +48,19 @@
 
     <fragment
         android:id="@+id/fg_data_nascimento"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:name="br.com.kuka.controleassociados.BirthDatePickerFragment"/>
 
     <fragment
         android:id="@+id/fg_data_ultimo_pagamento"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:name="br.com.kuka.controleassociados.LastPaymentDatePickerFragment"/>
 
     <fragment
         android:id="@+id/fg_data_associacao"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:name="br.com.kuka.controleassociados.AssociationDatePickerFragment"/>
 

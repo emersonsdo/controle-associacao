@@ -2,12 +2,20 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent">
 
-    <EditText
-        android:id="@+id/et_data_associacao"
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/til_data_associacao"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="showAssociationDatePickerDialog"
-        android:hint="@string/hint_data_associacao"
-        android:inputType="none"
-        android:focusable="false"/>
+        android:layout_marginTop="5dp">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/et_data_associacao"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="showAssociationDatePickerDialog"
+            android:hint="@string/hint_data_associacao"
+            android:inputType="none"
+            android:focusable="false"/>
+    </android.support.design.widget.TextInputLayout>
+
 </FrameLayout>
