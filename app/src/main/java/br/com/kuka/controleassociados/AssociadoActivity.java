@@ -18,7 +18,9 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Locale;
 
 import br.com.kuka.controleassociados.model.Associado;
@@ -60,11 +62,9 @@ public class AssociadoActivity extends AppCompatActivity {
     }
 
     public void salvar(View view) {
+//        TODO: Verificar atributos obrigatorios
         EditText etNome = (EditText) findViewById(R.id.et_nome);
         String nomeCadastrado = etNome.getText().toString();
-
-        CheckBox cbEmAtraso = (CheckBox) findViewById(R.id.cb_em_atraso);
-        Boolean emAtraso = cbEmAtraso.isChecked();
 
         EditText etDataNascimento = (EditText) findViewById(R.id.et_data_nascimento);
         String nascimento = etDataNascimento.getText().toString();
@@ -75,13 +75,16 @@ public class AssociadoActivity extends AppCompatActivity {
         EditText etAssociacao = (EditText) findViewById(R.id.et_data_associacao);
         String associacao = etAssociacao.getText().toString();
 
+        EditText etTelefone = (EditText) findViewById(R.id.et_telefone);
+        String telefoneCadastrado = etTelefone.getText().toString();
+
         ContentValues values = new ContentValues();
         values.put(AssociadoContract.Associado._ID, idAssociadoEditado);
         values.put(AssociadoContract.Associado.COLUMN_NAME_NOME, nomeCadastrado);
-        values.put(AssociadoContract.Associado.COLUMN_NAME_ATRASO, emAtraso);
         values.put(AssociadoContract.Associado.COLUMN_NAME_DATA_NASCIMENTO, nascimento);
         values.put(AssociadoContract.Associado.COLUMN_NAME_DATA_ULTIMO_PAGAMENTO, ultimoPagamento);
         values.put(AssociadoContract.Associado.COLUMN_NAME_DATA_ASSOCIACAO, associacao);
+        values.put(AssociadoContract.Associado.COLUMN_NAME_TELEFONE, telefoneCadastrado);
 
         insert(values);
     }
@@ -96,14 +99,23 @@ public class AssociadoActivity extends AppCompatActivity {
         CheckBox cbEmAtraso = (CheckBox) findViewById(R.id.cb_em_atraso);
         cbEmAtraso.setChecked(associado.emAtraso);
 
-        EditText etDataNascimento = (EditText) findViewById(R.id.et_data_nascimento);
-        etDataNascimento.setText(format.format(associado.dataNascimento));
+        if(associado.dataNascimento != null){
+            EditText etDataNascimento = (EditText) findViewById(R.id.et_data_nascimento);
+            etDataNascimento.setText(format.format(associado.dataNascimento));
+        }
 
-        EditText etUltimoPagamento = (EditText) findViewById(R.id.et_data_ultimo_pagamento);
-        etUltimoPagamento.setText(format.format(associado.dataUltimoPagamento));
+        if(associado.dataUltimoPagamento != null){
+            EditText etUltimoPagamento = (EditText) findViewById(R.id.et_data_ultimo_pagamento);
+            etUltimoPagamento.setText(format.format(associado.dataUltimoPagamento));
+        }
 
-        EditText etAssociacao = (EditText) findViewById(R.id.et_data_associacao);
-        etAssociacao.setText(format.format(associado.dataAssociacao));
+        if(associado.dataAssociacao != null){
+            EditText etAssociacao = (EditText) findViewById(R.id.et_data_associacao);
+            etAssociacao.setText(format.format(associado.dataAssociacao));
+        }
+
+        EditText etTelefone = (EditText) findViewById(R.id.et_telefone);
+        etTelefone.setText(associado.telefone);
     }
 
     public void deletar(View view){
@@ -132,10 +144,10 @@ public class AssociadoActivity extends AppCompatActivity {
         String [] dadosAssociado = {
                 AssociadoContract.Associado._ID,
                 AssociadoContract.Associado.COLUMN_NAME_NOME,
-                AssociadoContract.Associado.COLUMN_NAME_ATRASO,
                 AssociadoContract.Associado.COLUMN_NAME_DATA_NASCIMENTO,
                 AssociadoContract.Associado.COLUMN_NAME_DATA_ULTIMO_PAGAMENTO,
-                AssociadoContract.Associado.COLUMN_NAME_DATA_ASSOCIACAO
+                AssociadoContract.Associado.COLUMN_NAME_DATA_ASSOCIACAO,
+                AssociadoContract.Associado.COLUMN_NAME_TELEFONE
         };
 
         String whereClause = AssociadoContract.Associado.COLUMN_NAME_NOME+"=?";
@@ -153,15 +165,9 @@ public class AssociadoActivity extends AppCompatActivity {
             idAssociadoEditado = String.valueOf(associado._ID);
             associado.nome = cursor.getString(1);
 
-            if (cursor.getString(2).equalsIgnoreCase("1")) {
-                associado.emAtraso = true;
-            } else {
-                associado.emAtraso = false;
-            }
-
-            if (cursor.getString(3) != null && !cursor.getString(3).isEmpty()) {
+            if (cursor.getString(2) != null && !cursor.getString(2).isEmpty()) {
                 try {
-                    Date dataNascimento = format.parse(cursor.getString(3));
+                    Date dataNascimento = format.parse(cursor.getString(2));
                     associado.dataNascimento = dataNascimento;
                 } catch (ParseException e) {
                     Log.i("ASSOCIADO_ACTIVITY", "Erro no parser da data de nascimento!");
@@ -169,25 +175,37 @@ public class AssociadoActivity extends AppCompatActivity {
                 }
             }
 
-            if (cursor.getString(4) != null && !cursor.getString(4).isEmpty()) {
+            if (cursor.getString(3) != null && !cursor.getString(3).isEmpty()) {
                 try {
-                    Date dataUltimoPagamento = format.parse(cursor.getString(4));
+                    Date dataUltimoPagamento = format.parse(cursor.getString(3));
                     associado.dataUltimoPagamento = dataUltimoPagamento;
+
+                    Calendar dataAtual = new GregorianCalendar();
+                    Calendar dataApurada = new GregorianCalendar();
+                    dataApurada.setTime(associado.dataUltimoPagamento);
+
+                    if(dataAtual.get(Calendar.MONTH) > dataApurada.get(Calendar.MONTH) || dataAtual.get(Calendar.YEAR) > dataApurada.get(Calendar.YEAR)){
+                        associado.emAtraso = true;
+                    }else{
+                        associado.emAtraso = false;
+                    }
                 } catch (ParseException e) {
                     Log.i("ASSOCIADO_ACTIVITY", "Erro no parser da data do ultimo pagamento!");
                     e.printStackTrace();
                 }
             }
 
-            if (cursor.getString(5) != null && !cursor.getString(5).isEmpty()) {
+            if (cursor.getString(4) != null && !cursor.getString(4).isEmpty()) {
                 try {
-                    Date dataAssociacao = format.parse(cursor.getString(5));
+                    Date dataAssociacao = format.parse(cursor.getString(4));
                     associado.dataAssociacao = dataAssociacao;
                 } catch (ParseException e) {
                     Log.i("ASSOCIADO_ACTIVITY", "Erro no parser da data de associaçao!");
                     e.printStackTrace();
                 }
             }
+
+            associado.telefone = cursor.getString(5);
 
             listAssociados.add(associado);
         }
@@ -231,10 +249,10 @@ public class AssociadoActivity extends AppCompatActivity {
 
     private void setResultOk(ContentValues values, Intent intent){
         intent.putExtra("NOME", values.get(AssociadoContract.Associado.COLUMN_NAME_NOME).toString());
-        intent.putExtra("EM_ATRASO", (Boolean) values.get(AssociadoContract.Associado.COLUMN_NAME_ATRASO));
         intent.putExtra("DATA_NASCIMENTO", values.get(AssociadoContract.Associado.COLUMN_NAME_DATA_NASCIMENTO).toString());
         intent.putExtra("DATA_ULTIMO_PAGAMENTO", values.get(AssociadoContract.Associado.COLUMN_NAME_DATA_ULTIMO_PAGAMENTO).toString());
         intent.putExtra("DATA_ASSOCIACAO", values.get(AssociadoContract.Associado.COLUMN_NAME_DATA_ASSOCIACAO).toString());
+        intent.putExtra("TELEFONE", values.get(AssociadoContract.Associado.COLUMN_NAME_TELEFONE).toString());
 
         setResult(Activity.RESULT_OK, intent);
     }

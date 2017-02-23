@@ -36,7 +36,6 @@
                 android:layout_height="wrap_content"
                 android:checkMark="@drawable/unchecked" />
         </RelativeLayout>
-
     </LinearLayout>
 
     <LinearLayout
@@ -45,14 +44,14 @@
         android:orientation="horizontal">
 
         <TextView
-            android:text="@string/tx_ultimo_pagamento"
+            android:text="@string/tv_ultimo_pagamento"
             android:textStyle="bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"/>
 
         <TextView
-            android:id="@+id/tx_data_ultimo_pagamento"
+            android:id="@+id/tv_data_ultimo_pagamento"
             android:gravity="right"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
@@ -64,14 +63,14 @@
         android:orientation="horizontal">
 
         <TextView
-            android:text="@string/tx_nascimento"
+            android:text="@string/tv_nascimento"
             android:textStyle="bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"/>
 
         <TextView
-            android:id="@+id/tx_data_nascimento"
+            android:id="@+id/tv_data_nascimento"
             android:gravity="right"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
@@ -83,14 +82,33 @@
         android:orientation="horizontal">
 
         <TextView
-            android:text="@string/tx_data_associacao"
+            android:text="@string/tv_data_associacao"
             android:textStyle="bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"/>
 
         <TextView
-            android:id="@+id/tx_data_associacao"
+            android:id="@+id/tv_data_associacao"
+            android:gravity="right"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:text="@string/tv_telefone"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"/>
+
+        <TextView
+            android:id="@+id/tv_telefone"
             android:gravity="right"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />

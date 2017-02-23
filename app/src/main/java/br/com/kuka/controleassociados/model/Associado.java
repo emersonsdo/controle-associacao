@@ -16,35 +16,45 @@ public class Associado implements Serializable{
     public Date dataNascimento;
     public Date dataUltimoPagamento;
     public Date dataAssociacao;
+    public String telefone;
 //    public String valorDevido;
 //    public Image foto;
 
     public Associado (){
     }
 
-    public Associado (String nome, Boolean emAtraso){
+    public Associado (String nome/*, Boolean emAtraso*/){
         this.nome = nome;
-        this.emAtraso = emAtraso;
+//        this.emAtraso = emAtraso;
     }
 
-    public Associado (String nome, Boolean emAtraso, Date dataNascimento){
+    public Associado (String nome, /*Boolean emAtraso, */Date dataNascimento){
         this.nome = nome;
-        this.emAtraso = emAtraso;
+//        this.emAtraso = emAtraso;
         this.dataNascimento = dataNascimento;
     }
 
-    public Associado (String nome, Boolean emAtraso, Date dataNascimento, Date dataUltimoPagamento){
+    public Associado (String nome, /*Boolean emAtraso, */Date dataNascimento, Date dataUltimoPagamento){
         this.nome = nome;
-        this.emAtraso = emAtraso;
+//        this.emAtraso = emAtraso;
         this.dataNascimento = dataNascimento;
         this.dataUltimoPagamento = dataUltimoPagamento;
     }
 
-    public Associado (String nome, Boolean emAtraso, Date dataNascimento, Date dataUltimoPagamento, Date dataAssociacao){
+    public Associado (String nome, /*Boolean emAtraso, */Date dataNascimento, Date dataUltimoPagamento, Date dataAssociacao){
         this.nome = nome;
-        this.emAtraso = emAtraso;
+//        this.emAtraso = emAtraso;
         this.dataNascimento = dataNascimento;
         this.dataUltimoPagamento = dataUltimoPagamento;
         this.dataAssociacao = dataAssociacao;
+    }
+
+    public Associado (String nome, /*Boolean emAtraso, */Date dataNascimento, Date dataUltimoPagamento, Date dataAssociacao, String telefone){
+        this.nome = nome;
+//        this.emAtraso = emAtraso;
+        this.dataNascimento = dataNascimento;
+        this.dataUltimoPagamento = dataUltimoPagamento;
+        this.dataAssociacao = dataAssociacao;
+        this.telefone = telefone;
     }
 }

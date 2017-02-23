@@ -5,7 +5,6 @@ import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +16,9 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Locale;
 
 import br.com.kuka.controleassociados.R;
@@ -58,10 +59,10 @@ public class ListAssociadosAdapter extends BaseAdapter {
         String [] dadosAssociado = {
                 AssociadoContract.Associado._ID,
                 AssociadoContract.Associado.COLUMN_NAME_NOME,
-                AssociadoContract.Associado.COLUMN_NAME_ATRASO,
                 AssociadoContract.Associado.COLUMN_NAME_DATA_NASCIMENTO,
                 AssociadoContract.Associado.COLUMN_NAME_DATA_ULTIMO_PAGAMENTO,
-                AssociadoContract.Associado.COLUMN_NAME_DATA_ASSOCIACAO
+                AssociadoContract.Associado.COLUMN_NAME_DATA_ASSOCIACAO,
+                AssociadoContract.Associado.COLUMN_NAME_TELEFONE
         };
 
         Cursor cursor = db.query(AssociadoContract.Associado.TABLE_NAME,
@@ -71,17 +72,13 @@ public class ListAssociadosAdapter extends BaseAdapter {
 
         while (cursor.moveToNext()) {
             Associado associado = new Associado();
+
+            associado._ID = Long.parseLong(cursor.getString(0));
             associado.nome = cursor.getString(1);
 
-            if(cursor.getString(2).equalsIgnoreCase("1")){
-                associado.emAtraso = true;
-            }else{
-                associado.emAtraso = false;
-            }
-
-            if(cursor.getString(3) != null && !cursor.getString(3).isEmpty()){
+            if(cursor.getString(2) != null && !cursor.getString(2).isEmpty()){
                 try {
-                    Date dataNascimento = format.parse(cursor.getString(3));
+                    Date dataNascimento = format.parse(cursor.getString(2));
                     associado.dataNascimento = dataNascimento;
                 } catch (ParseException e) {
                     Log.i("ASSOCIADO_ADAPTER", "Erro no parser da data de nascimento!");
@@ -89,25 +86,37 @@ public class ListAssociadosAdapter extends BaseAdapter {
                 }
             }
 
-            if(cursor.getString(4) != null && !cursor.getString(4).isEmpty()){
+            if(cursor.getString(3) != null && !cursor.getString(3).isEmpty()){
                 try {
-                    Date dataUltimoPagamento = format.parse(cursor.getString(4));
+                    Date dataUltimoPagamento = format.parse(cursor.getString(3));
                     associado.dataUltimoPagamento = dataUltimoPagamento;
+
+                    Calendar dataAtual = new GregorianCalendar();
+                    Calendar dataApurada = new GregorianCalendar();
+                    dataApurada.setTime(associado.dataUltimoPagamento);
+
+                    if(dataAtual.get(Calendar.MONTH) > dataApurada.get(Calendar.MONTH) || dataAtual.get(Calendar.YEAR) > dataApurada.get(Calendar.YEAR)){
+                        associado.emAtraso = true;
+                    }else{
+                        associado.emAtraso = false;
+                    }
                 } catch (ParseException e) {
                     Log.i("ASSOCIADO_ADAPTER", "Erro no parser da data do ultimo pagamento!");
                     e.printStackTrace();
                 }
             }
 
-            if(cursor.getString(5) != null && !cursor.getString(5).isEmpty()) {
+            if(cursor.getString(4) != null && !cursor.getString(4).isEmpty()) {
                 try {
-                    Date dataAssociacao = format.parse(cursor.getString(5));
+                    Date dataAssociacao = format.parse(cursor.getString(4));
                     associado.dataAssociacao = dataAssociacao;
                 } catch (ParseException e) {
                     Log.i("ASSOCIADO_ADAPTER", "Erro no parser da data de associaçao!");
                     e.printStackTrace();
                 }
             }
+
+            associado.telefone = cursor.getString(5);
 
             listaAssociados.add(associado);
         }
@@ -171,15 +180,20 @@ public class ListAssociadosAdapter extends BaseAdapter {
         TextView tvNome = (TextView) view.findViewById(R.id.tv_nome);
         CheckedTextView ctvSemAtraso = (CheckedTextView) view.findViewById(R.id.ctv_sem_atraso);
         CheckedTextView ctvComAtraso = (CheckedTextView) view.findViewById(R.id.ctv_com_atraso);
-        TextView tvDataNascimento = (TextView) view.findViewById(R.id.tx_data_nascimento);
-        TextView tvDataUltimoPagamento = (TextView) view.findViewById(R.id.tx_data_ultimo_pagamento);
-        TextView tvDataAssociacao = (TextView) view.findViewById(R.id.tx_data_associacao);
+        TextView tvDataNascimento = (TextView) view.findViewById(R.id.tv_data_nascimento);
+        TextView tvDataUltimoPagamento = (TextView) view.findViewById(R.id.tv_data_ultimo_pagamento);
+        TextView tvDataAssociacao = (TextView) view.findViewById(R.id.tv_data_associacao);
+        TextView tvTelefone = (TextView) view.findViewById(R.id.tv_telefone);
 
         Associado associado = getItem(i);
 
         if(associado != null) {
             tvNome.setText(associado.nome);
-            if(associado.emAtraso){
+
+            Calendar dataAtual = new GregorianCalendar();
+            Calendar dataApurada = new GregorianCalendar();
+
+            if(associado.emAtraso) {
                 ctvSemAtraso.setVisibility(View.INVISIBLE);
                 ctvComAtraso.setVisibility(View.VISIBLE);
             }else{
@@ -187,17 +201,19 @@ public class ListAssociadosAdapter extends BaseAdapter {
                 ctvSemAtraso.setVisibility(View.VISIBLE);
             }
 
-            if(associado.dataNascimento != null){
-                tvDataNascimento.setText(format.format(associado.dataNascimento));
-            }
-
             if(associado.dataUltimoPagamento != null){
                 tvDataUltimoPagamento.setText(format.format(associado.dataUltimoPagamento));
+            }
+
+            if(associado.dataNascimento != null){
+                tvDataNascimento.setText(format.format(associado.dataNascimento));
             }
 
             if(associado.dataAssociacao != null){
                 tvDataAssociacao.setText(format.format(associado.dataAssociacao));
             }
+
+            tvTelefone.setText(associado.telefone);
         }
 
         return view;

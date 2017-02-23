@@ -22,10 +22,11 @@ public class DBAssociadoHelper extends SQLiteOpenHelper {
             "CREATE TABLE " + AssociadoContract.Associado.TABLE_NAME + " (" +
                     AssociadoContract.Associado._ID + " INTEGER PRIMARY KEY" + COMMA_SEP +
                     AssociadoContract.Associado.COLUMN_NAME_NOME + TEXT_TYPE + COMMA_SEP +
-                    AssociadoContract.Associado.COLUMN_NAME_ATRASO + TEXT_TYPE + COMMA_SEP +
+//                    AssociadoContract.Associado.COLUMN_NAME_ATRASO + TEXT_TYPE + COMMA_SEP +
                     AssociadoContract.Associado.COLUMN_NAME_DATA_NASCIMENTO + TEXT_TYPE + COMMA_SEP +
                     AssociadoContract.Associado.COLUMN_NAME_DATA_ULTIMO_PAGAMENTO + TEXT_TYPE + COMMA_SEP +
-                    AssociadoContract.Associado.COLUMN_NAME_DATA_ASSOCIACAO + TEXT_TYPE +" )";
+                    AssociadoContract.Associado.COLUMN_NAME_DATA_ASSOCIACAO + TEXT_TYPE + COMMA_SEP +
+                    AssociadoContract.Associado.COLUMN_NAME_TELEFONE + TEXT_TYPE + " )";
 
     public DBAssociadoHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);

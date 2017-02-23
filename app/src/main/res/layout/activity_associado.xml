@@ -16,10 +16,9 @@
         android:id="@+id/til_nome"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
         android:layout_marginTop="5dp">
 
-        <EditText
+        <android.support.design.widget.TextInputEditText
             android:id="@+id/et_nome"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -28,33 +27,50 @@
             android:hint="@string/hint_nome"
             android:inputType="textMultiLine"
             android:scrollbars="vertical" />
+    </android.support.design.widget.TextInputLayout>
 
-        <CheckBox
-            android:id="@+id/cb_em_atraso"
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/til_telefone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/et_telefone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:text="@string/check_em_atraso" />
-
-        <fragment
-            android:id="@+id/fg_data_nascimento"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:name="br.com.kuka.controleassociados.BirthDatePickerFragment"/>
-
-        <fragment
-            android:id="@+id/fg_data_ultimo_pagamento"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:name="br.com.kuka.controleassociados.LastPaymentDatePickerFragment"/>
-
-        <fragment
-            android:id="@+id/fg_data_associacao"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:name="br.com.kuka.controleassociados.AssociationDatePickerFragment"/>
-
+            android:gravity="top"
+            android:hint="@string/hint_telefone"
+            android:inputType="textMultiLine"
+            android:scrollbars="vertical" />
     </android.support.design.widget.TextInputLayout>
+
+    <fragment
+        android:id="@+id/fg_data_nascimento"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:name="br.com.kuka.controleassociados.BirthDatePickerFragment"/>
+
+    <fragment
+        android:id="@+id/fg_data_ultimo_pagamento"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:name="br.com.kuka.controleassociados.LastPaymentDatePickerFragment"/>
+
+    <fragment
+        android:id="@+id/fg_data_associacao"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:name="br.com.kuka.controleassociados.AssociationDatePickerFragment"/>
+
+    <CheckBox
+        android:id="@+id/cb_em_atraso"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:clickable="false"
+        android:text="@string/check_em_atraso" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -90,5 +106,4 @@
             app:rippleColor="@android:color/transparent"
             android:onClick="deletar" />
     </LinearLayout>
-
 </LinearLayout>

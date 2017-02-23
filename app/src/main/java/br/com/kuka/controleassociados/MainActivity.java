@@ -55,7 +55,15 @@ public class MainActivity extends AppCompatActivity {
                 deletar(idDeletado);
             }
         }
+
+        atualizarSituacaoAssociados();
     }
+
+    private void atualizarSituacaoAssociados() {
+        Date atualDate = new Date();
+        Log.i("MAIN", "Data atual: " +  atualDate.getTime());
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -88,21 +96,27 @@ public class MainActivity extends AppCompatActivity {
         if(resultCode == Activity.RESULT_OK){
             if(requestCode == CODIGO_REQUEST_CADASTRAR || requestCode == CODIGO_REQUEST_EDITAR) {
                 String nomeCadastrado = data.getStringExtra("NOME");
-                Boolean emAtraso = data.getBooleanExtra("EM_ATRASO", false);
                 Date dataNascimento = null;
                 Date dataUltimoPagamento = null;
                 Date dataAssociacao = null;
+                String telefone = data.getStringExtra("TELEFONE");
                 try {
                     DateFormat format = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
-                    dataNascimento = format.parse(data.getStringExtra("DATA_NASCIMENTO"));
-                    dataUltimoPagamento = format.parse(data.getStringExtra("DATA_ULTIMO_PAGAMENTO"));
-                    dataAssociacao = format.parse(data.getStringExtra("DATA_ASSOCIACAO"));
+                    if(!data.getStringExtra("DATA_NASCIMENTO").isEmpty()){
+                        dataNascimento = format.parse(data.getStringExtra("DATA_NASCIMENTO"));
+                    }
+                    if (!data.getStringExtra("DATA_ULTIMO_PAGAMENTO").isEmpty()){
+                        dataUltimoPagamento = format.parse(data.getStringExtra("DATA_ULTIMO_PAGAMENTO"));
+                    }
+                    if(!data.getStringExtra("DATA_ASSOCIACAO").isEmpty()){
+                        dataAssociacao = format.parse(data.getStringExtra("DATA_ASSOCIACAO"));
+                    }
                 } catch (ParseException e) {
                     Log.i("MAIN", "Erro no parser da data!");
                     e.printStackTrace();
                 }
 
-                associadosAdapter.addAssociado(new Associado(nomeCadastrado, emAtraso, dataNascimento, dataUltimoPagamento, dataAssociacao));
+                associadosAdapter.addAssociado(new Associado(nomeCadastrado, dataNascimento, dataUltimoPagamento, dataAssociacao, telefone));
 
                 Toast toast = Toast.makeText(this, "Dados salvos com sucesso", Toast.LENGTH_LONG);
                 toast.show();
