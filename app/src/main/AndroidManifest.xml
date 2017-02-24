@@ -16,7 +16,11 @@
             </intent-filter>
         </activity>
         <activity android:name=".AssociadoActivity" />
-        <activity android:name=".ConfiguracaoActivity"></activity>
+        <activity android:name=".ConfiguracaoActivity" />
+        <activity
+            android:name=".GastoFixoActivity"
+            android:label="@string/title_activity_gasto_fixo"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>

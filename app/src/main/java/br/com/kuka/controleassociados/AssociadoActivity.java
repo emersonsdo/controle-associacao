@@ -31,7 +31,7 @@ import br.com.kuka.controleassociados.util.DBAssociadoHelper;
 
 public class AssociadoActivity extends AppCompatActivity {
 
-    String idAssociadoEditado = null;
+    private String idAssociadoEditado = null;
     ArrayList<Associado> listAssociados;
     DateFormat format = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
 
