@@ -11,7 +11,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ListView;
 
+import br.com.kuka.controleassociados.adapters.ListGastosFixosAdapter;
 import br.com.kuka.controleassociados.model.GastoFixo;
 
 public class ConfiguracaoActivity extends AppCompatActivity {
@@ -25,6 +27,9 @@ public class ConfiguracaoActivity extends AppCompatActivity {
 
     String valorMensalidade;
     String saldo;
+
+    ListView lvGastosFixos;
+    ListGastosFixosAdapter gastosFixosAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +50,10 @@ public class ConfiguracaoActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         setTitle(R.string.titulo_configutation);
+
+        gastosFixosAdapter = new ListGastosFixosAdapter(this);
+        lvGastosFixos = (ListView) findViewById(R.id.lv_gastos_fixos);
+        lvGastosFixos.setAdapter(gastosFixosAdapter);
     }
 
     @Override
