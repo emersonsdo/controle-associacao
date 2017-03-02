@@ -7,11 +7,18 @@ import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ListView;
+
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 import br.com.kuka.controleassociados.adapters.ListGastosFixosAdapter;
 import br.com.kuka.controleassociados.model.GastoFixo;
@@ -85,6 +92,32 @@ public class ConfiguracaoActivity extends AppCompatActivity {
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(resultCode == Activity.RESULT_OK){
+            if(requestCode == CODIGO_NOVO_GASTO_FIXO){
+                String descricao = data.getStringExtra("DESCRICAO");
+                String valor = data.getStringExtra("VALOR");
+                String stringDataCriacao = data.getStringExtra("DATA");
+                Date dataCriacao = null;
+
+                try{
+                    DateFormat format = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
+                    if(!stringDataCriacao.isEmpty()){
+                        dataCriacao = format.parse(stringDataCriacao);
+                    }
+                } catch (ParseException e) {
+                    Log.i("CONFIGURACAO", "Erro no parser da data!");
+                    e.printStackTrace();
+                }
+
+                gastosFixosAdapter.addGastoFixo(new GastoFixo(descricao, Long.parseLong(valor), dataCriacao));
+            }
         }
     }
 

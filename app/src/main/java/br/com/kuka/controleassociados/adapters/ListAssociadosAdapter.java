@@ -193,12 +193,14 @@ public class ListAssociadosAdapter extends BaseAdapter {
             Calendar dataAtual = new GregorianCalendar();
             Calendar dataApurada = new GregorianCalendar();
 
-            if(associado.emAtraso) {
-                ctvSemAtraso.setVisibility(View.INVISIBLE);
-                ctvComAtraso.setVisibility(View.VISIBLE);
-            }else{
-                ctvComAtraso.setVisibility(View.INVISIBLE);
-                ctvSemAtraso.setVisibility(View.VISIBLE);
+            if(associado.emAtraso != null) {
+                if(associado.emAtraso) {
+                    ctvSemAtraso.setVisibility(View.INVISIBLE);
+                    ctvComAtraso.setVisibility(View.VISIBLE);
+                }else{
+                    ctvComAtraso.setVisibility(View.INVISIBLE);
+                    ctvSemAtraso.setVisibility(View.VISIBLE);
+                }
             }
 
             if(associado.dataUltimoPagamento != null){

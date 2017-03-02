@@ -55,10 +55,6 @@ public class GastoFixoActivity extends AppCompatActivity {
 
         String data = obterDataAtual();
 
-        Log.i("GFA", "Descriçao: " +  descricao);
-        Log.i("GFA", "Valor: " +  valor);
-        Log.i("GFA", "Data: " +  data);
-
         ContentValues values = new ContentValues();
         values.put(GastoFixoContract.GastoFixo._ID, idGastoFixoEditado);
         values.put(GastoFixoContract.GastoFixo.COLUMN_NAME_DESCRICAO, descricao);

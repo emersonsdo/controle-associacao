@@ -124,10 +124,10 @@ public class MainActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
-                associadosAdapter.addAssociado(new Associado(nomeCadastrado, dataNascimento, dataUltimoPagamento, dataAssociacao, telefone));
-
                 Toast toast = Toast.makeText(this, "Dados salvos com sucesso", Toast.LENGTH_LONG);
                 toast.show();
+
+                associadosAdapter.addAssociado(new Associado(nomeCadastrado, dataNascimento, dataUltimoPagamento, dataAssociacao, telefone));
 
 //                imprimirDados();
 //            }else if(requestCode == CODIGO_REQUEST_CONFIGURAR) {
