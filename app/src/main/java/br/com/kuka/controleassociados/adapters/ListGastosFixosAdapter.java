@@ -15,17 +15,12 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.Locale;
 
 import br.com.kuka.controleassociados.R;
-import br.com.kuka.controleassociados.model.Associado;
-import br.com.kuka.controleassociados.model.AssociadoContract;
 import br.com.kuka.controleassociados.model.GastoFixo;
 import br.com.kuka.controleassociados.model.GastoFixoContract;
-import br.com.kuka.controleassociados.util.DBAssociadoHelper;
 import br.com.kuka.controleassociados.util.DBGastoFixoHelper;
 
 /**
@@ -114,9 +109,9 @@ public class ListGastosFixosAdapter extends BaseAdapter {
 
         view = inflater.inflate(R.layout.list_view_gastos_fixos, null);
 
-        TextView tvDescricaoGastoFixo = (TextView) view.findViewById(R.id.tv_descricao_gasto);
-        TextView tvValorGastoFixo = (TextView) view.findViewById(R.id.tv_valor_gasto);
-        TextView tvDataCriacaoGastoFixo = (TextView) view.findViewById(R.id.tv_data_criacao_gasto);
+        TextView tvDescricaoGastoFixo = (TextView) view.findViewById(R.id.tv_descricao_gasto_fixo);
+        TextView tvValorGastoFixo = (TextView) view.findViewById(R.id.tv_valor_gasto_fixo);
+        TextView tvDataCriacaoGastoFixo = (TextView) view.findViewById(R.id.tv_data_criacao_gasto_fixo);
 
         GastoFixo gastoFixo = getItem(i);
 

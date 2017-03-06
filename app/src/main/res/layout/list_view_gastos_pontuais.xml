@@ -16,7 +16,7 @@
             android:layout_marginBottom="5dp"/>
 
         <TextView
-            android:id="@+id/tv_descricao_gasto_fixo"
+            android:id="@+id/tv_descricao_gasto_pontual"
             android:gravity="right"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
@@ -35,7 +35,7 @@
             android:layout_marginBottom="5dp"/>
 
         <TextView
-            android:id="@+id/tv_valor_gasto_fixo"
+            android:id="@+id/tv_valor_gasto_pontual"
             android:gravity="right"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
@@ -54,10 +54,9 @@
             android:layout_marginBottom="5dp"/>
 
         <TextView
-            android:id="@+id/tv_data_criacao_gasto_fixo"
+            android:id="@+id/tv_data_criacao_gasto_pontual"
             android:gravity="right"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </LinearLayout>
-
 </LinearLayout>

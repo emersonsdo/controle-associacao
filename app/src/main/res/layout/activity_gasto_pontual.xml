@@ -5,11 +5,11 @@
     android:id="@+id/activity_associado"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="br.com.kuka.controleassociados.GastoFixoActivity"
+    tools:context="br.com.kuka.controleassociados.GastoPontualActivity"
     android:orientation="vertical">
 
     <android.support.v7.widget.Toolbar
-        android:id="@+id/gasto_fixo_toolbar"
+        android:id="@+id/gasto_pontual_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
@@ -18,7 +18,7 @@
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
 
     <android.support.design.widget.TextInputLayout
-        android:id="@+id/til_descricao_gasto_fixo"
+        android:id="@+id/til_descricao_gasto_pontual"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
@@ -28,7 +28,7 @@
         android:paddingTop="@dimen/activity_vertical_margin">
 
         <android.support.design.widget.TextInputEditText
-            android:id="@+id/et_descricao_gasto_fixo"
+            android:id="@+id/et_descricao_gasto_pontual"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
@@ -39,7 +39,7 @@
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
-        android:id="@+id/til_valor_gasto_fixo"
+        android:id="@+id/til_valor_gasto_pontual"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
@@ -48,7 +48,7 @@
         android:paddingRight="@dimen/activity_horizontal_margin">
 
         <android.support.design.widget.TextInputEditText
-            android:id="@+id/et_valor_gasto_fixo"
+            android:id="@+id/et_valor_gasto_pontual"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
@@ -66,7 +66,7 @@
         android:paddingRight="@dimen/activity_horizontal_margin">
 
         <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fab_salvar_gasto_fixo"
+            android:id="@+id/fab_salvar_gasto_pontual"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
@@ -80,7 +80,7 @@
             android:onClick="salvar"/>
 
         <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fab_deletar_gasto_fixo"
+            android:id="@+id/fab_deletar_gasto_pontual"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="right"

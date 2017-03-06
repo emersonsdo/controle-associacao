@@ -14,14 +14,14 @@ import java.util.Locale;
 public class GastoFixo implements Serializable {
 
     public long _ID;
-    public long valor;
     public String descricao;
+    public long valor;
     public Date dataCriacao;
 
     public GastoFixo(){
     }
 
-    public void Gasto(long valor, String descricao) throws ParseException {
+    public GastoFixo(String descricao, long valor) throws ParseException {
         this.valor = valor;
         this.descricao = descricao;
 
@@ -30,7 +30,7 @@ public class GastoFixo implements Serializable {
         dataCriacao = format.parse(dataCriacao.toString());
     }
 
-    public void Gasto(long valor, String descricao, Date dataCriacao) {
+    public GastoFixo(String descricao, long valor, Date dataCriacao) {
         this.valor = valor;
         this.descricao = descricao;
         this.dataCriacao = dataCriacao;

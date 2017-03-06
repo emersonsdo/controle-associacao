@@ -7,10 +7,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ListView;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -19,7 +17,6 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Locale;
 
-import br.com.kuka.controleassociados.adapters.ListGastosFixosAdapter;
 import br.com.kuka.controleassociados.model.GastoFixoContract;
 import br.com.kuka.controleassociados.util.DBGastoFixoHelper;
 
@@ -34,7 +31,7 @@ public class GastoFixoActivity extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.gasto_fixo_toolbar);
         setSupportActionBar(toolbar);
-        setTitle("Gastando o que nao tem...");
+        setTitle("Gastos Fixos");
 
 //        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 //        fab.setOnClickListener(new View.OnClickListener() {
@@ -54,10 +51,6 @@ public class GastoFixoActivity extends AppCompatActivity {
         Long valor = Long.parseLong(etValor.getText().toString());
 
         String data = obterDataAtual();
-
-        Log.i("GFA", "Descriçao: " +  descricao);
-        Log.i("GFA", "Valor: " +  valor);
-        Log.i("GFA", "Data: " +  data);
 
         ContentValues values = new ContentValues();
         values.put(GastoFixoContract.GastoFixo._ID, idGastoFixoEditado);

@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -66,29 +67,32 @@ public class AssociadoActivity extends AppCompatActivity {
     public void salvar(View view) {
 //        TODO: Verificar atributos obrigatorios
         EditText etNome = (EditText) findViewById(R.id.et_nome);
-        String nomeCadastrado = etNome.getText().toString();
-
         EditText etDataNascimento = (EditText) findViewById(R.id.et_data_nascimento);
-        String nascimento = etDataNascimento.getText().toString();
-
         EditText etUltimoPagamento = (EditText) findViewById(R.id.et_data_ultimo_pagamento);
-        String ultimoPagamento = etUltimoPagamento.getText().toString();
-
         EditText etAssociacao = (EditText) findViewById(R.id.et_data_associacao);
-        String associacao = etAssociacao.getText().toString();
-
         EditText etTelefone = (EditText) findViewById(R.id.et_telefone);
+
+        String nomeCadastrado = etNome.getText().toString();
+        String nascimento  = etDataNascimento.getText().toString();
+        String ultimoPagamento = etUltimoPagamento.getText().toString();
+        String associacao = etAssociacao.getText().toString();
         String telefoneCadastrado = etTelefone.getText().toString();
 
-        ContentValues values = new ContentValues();
-        values.put(AssociadoContract.Associado._ID, idAssociadoEditado);
-        values.put(AssociadoContract.Associado.COLUMN_NAME_NOME, nomeCadastrado);
-        values.put(AssociadoContract.Associado.COLUMN_NAME_DATA_NASCIMENTO, nascimento);
-        values.put(AssociadoContract.Associado.COLUMN_NAME_DATA_ULTIMO_PAGAMENTO, ultimoPagamento);
-        values.put(AssociadoContract.Associado.COLUMN_NAME_DATA_ASSOCIACAO, associacao);
-        values.put(AssociadoContract.Associado.COLUMN_NAME_TELEFONE, telefoneCadastrado);
+        if(nomeCadastrado.isEmpty() | ultimoPagamento.isEmpty()){
+            Toast toast = Toast.makeText(this, "Nome e data de ultimo pagamento sao obrigatorios", Toast.LENGTH_LONG);
+            toast.show();
+        }else{
+            ContentValues values = new ContentValues();
+            values.put(AssociadoContract.Associado._ID, idAssociadoEditado);
+            values.put(AssociadoContract.Associado.COLUMN_NAME_NOME, nomeCadastrado);
+            values.put(AssociadoContract.Associado.COLUMN_NAME_DATA_NASCIMENTO, nascimento);
+            values.put(AssociadoContract.Associado.COLUMN_NAME_DATA_ULTIMO_PAGAMENTO, ultimoPagamento);
+            values.put(AssociadoContract.Associado.COLUMN_NAME_DATA_ASSOCIACAO, associacao);
+            values.put(AssociadoContract.Associado.COLUMN_NAME_TELEFONE, telefoneCadastrado);
 
-        insert(values);
+            insert(values);
+        }
+
     }
 
     private void editar(Intent intent) {

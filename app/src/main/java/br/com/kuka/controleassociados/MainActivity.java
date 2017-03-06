@@ -89,6 +89,7 @@ public class MainActivity extends AppCompatActivity {
             case R.id.im_configuracao:
                 Intent intentConfigurar = new Intent(this, ConfiguracaoActivity.class);
                 intentConfigurar.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                intentConfigurar.putExtra("QUANTIDADE_ASSOCIADOS", associadosAdapter.getCount());
                 startActivity(intentConfigurar);
 
                 return true;
@@ -124,10 +125,10 @@ public class MainActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
-                associadosAdapter.addAssociado(new Associado(nomeCadastrado, dataNascimento, dataUltimoPagamento, dataAssociacao, telefone));
-
                 Toast toast = Toast.makeText(this, "Dados salvos com sucesso", Toast.LENGTH_LONG);
                 toast.show();
+
+                associadosAdapter.addAssociado(new Associado(nomeCadastrado, dataNascimento, dataUltimoPagamento, dataAssociacao, telefone));
 
 //                imprimirDados();
 //            }else if(requestCode == CODIGO_REQUEST_CONFIGURAR) {

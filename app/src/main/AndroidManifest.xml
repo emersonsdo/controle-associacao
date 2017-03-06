@@ -20,7 +20,8 @@
         <activity
             android:name=".GastoFixoActivity"
             android:label="@string/title_activity_gasto_fixo"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme" />
+        <activity android:name=".GastoPontualActivity"></activity>
     </application>
 
 </manifest>
