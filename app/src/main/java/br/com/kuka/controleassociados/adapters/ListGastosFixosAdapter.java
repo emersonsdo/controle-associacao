@@ -81,6 +81,11 @@ public class ListGastosFixosAdapter extends BaseAdapter {
         return listaGastosFixos;
     }
 
+    public ArrayList<GastoFixo> getListaGastosFixos(int mes, int ano){
+        //TODO
+        return null;
+    }
+
     public void addGastoFixo(GastoFixo gastoFixo){
         listaGastosFixos.add(gastoFixo);
     }

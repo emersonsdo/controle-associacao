@@ -13,7 +13,7 @@ import br.com.kuka.controleassociados.model.GastoPontualContract;
 public class DBGastoPontualHelper extends SQLiteOpenHelper {
 
     public static final int DATABASE_VERSION = 1;
-    public static final String DATABASE_NAME = "GastoFixo.db";
+    public static final String DATABASE_NAME = "GastoPontual.db";
 
     private static final String TEXT_TYPE = " TEXT";
     private static final String NUMBER_TYPE = " NUMERIC";

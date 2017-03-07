@@ -19,11 +19,8 @@ import java.util.Date;
 import java.util.Locale;
 
 import br.com.kuka.controleassociados.R;
-import br.com.kuka.controleassociados.model.GastoFixo;
-import br.com.kuka.controleassociados.model.GastoFixoContract;
 import br.com.kuka.controleassociados.model.GastoPontual;
 import br.com.kuka.controleassociados.model.GastoPontualContract;
-import br.com.kuka.controleassociados.util.DBGastoFixoHelper;
 import br.com.kuka.controleassociados.util.DBGastoPontualHelper;
 
 /**
@@ -90,7 +87,11 @@ public class ListGastosPontuaisAdapter extends BaseAdapter {
 
     public ArrayList<GastoPontual> getListaGastosPontuais(int mes, int ano){
         //TODO
-        return null;
+        return listaGastosPontuais;
+    }
+
+    public void addGastoPontual(GastoPontual gastoPontual){
+        listaGastosPontuais.add(gastoPontual);
     }
 
     @Override
