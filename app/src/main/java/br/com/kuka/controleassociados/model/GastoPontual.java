@@ -10,7 +10,7 @@ import java.util.Locale;
 /**
  * Created by 01748913506 on 03/03/17.
  */
-
+//TODO: GastoPontual deve extender GastoFixo
 public class GastoPontual implements Serializable {
 
     public long _ID;

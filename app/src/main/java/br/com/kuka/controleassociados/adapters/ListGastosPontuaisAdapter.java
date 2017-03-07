@@ -15,7 +15,9 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Locale;
 
 import br.com.kuka.controleassociados.R;
@@ -49,7 +51,6 @@ public class ListGastosPontuaisAdapter extends BaseAdapter {
                 GastoPontualContract.GastoPontual.COLUMN_NAME_VALOR,
                 GastoPontualContract.GastoPontual.COLUMN_NAME_DATA_CRIACAO,
                 GastoPontualContract.GastoPontual.COLUMN_NAME_CONTABILIZADO
-
         };
 
         Cursor cursor = db.query(GastoPontualContract.GastoPontual.TABLE_NAME,
@@ -75,7 +76,6 @@ public class ListGastosPontuaisAdapter extends BaseAdapter {
             }
 
             gastoPontual.contabilizado = Boolean.valueOf(cursor.getString(4));
-
             listaGastosPontuais.add(gastoPontual);
         }
 
@@ -86,8 +86,17 @@ public class ListGastosPontuaisAdapter extends BaseAdapter {
     }
 
     public ArrayList<GastoPontual> getListaGastosPontuais(int mes, int ano){
-        //TODO
-        return listaGastosPontuais;
+        ArrayList<GastoPontual> listaGastosPontuaisMensal = new ArrayList<>();
+
+        Calendar dataCriacao = new GregorianCalendar();
+
+        for(GastoPontual gastoPontual : listaGastosPontuais){
+            dataCriacao.setTime(gastoPontual.dataCriacao);
+            if(dataCriacao.get(Calendar.MONTH) == mes && dataCriacao.get(Calendar.YEAR) == ano){
+                listaGastosPontuaisMensal.add(gastoPontual);
+            }
+        }
+        return listaGastosPontuaisMensal;
     }
 
     public void addGastoPontual(GastoPontual gastoPontual){

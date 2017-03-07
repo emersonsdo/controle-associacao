@@ -56,33 +56,16 @@ public class ConfiguracaoActivity extends AppCompatActivity {
     ListView lvGastosPontuais;
     ListGastosPontuaisAdapter gastosPontuaisAdapter;
 
-    @Override
+    @Override //TODO: abrir tela de ediçao do item ao clicar neles (como os associados)
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_configuracao);
 
-        configuracoes = getSharedPreferences("preferencies", Context.MODE_PRIVATE);
-        valorMensalidade = configuracoes.getString("valor_mensalidade", "Nenhum valor salvo");
-        saldo = configuracoes.getString("valor_saldo", "0");
-        mesCalculado = configuracoes.getString("mes_calculado", "-1");
-        previsaoReceitasDoMes = configuracoes.getString("receitas_do_mes", "0");
-        previsaoDespesasDoMes = configuracoes.getString("despesas_do_mes", "0");
-
-        editValorMensalidade = (EditText) findViewById(R.id.ed_valor_mensalidade);
-        editValorMensalidade.setHint(valorMensalidade);
-
-        editSaldo = (EditText) findViewById(R.id.ed_saldo);
-        editSaldo.setHint(saldo);
-
-        editReceitasDoMes = (EditText) findViewById(R.id.ed_previsao_receita);
-        editReceitasDoMes.setHint(previsaoReceitasDoMes);
-
-        editDespesasDoMes = (EditText) findViewById(R.id.ed_previsao_despesa);
-        editDespesasDoMes.setHint(previsaoDespesasDoMes);
+        obterPreferencias();
+        setTextosIniciais();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.configuration_toolbar);
         setSupportActionBar(toolbar);
-
         setTitle(R.string.titulo_configutation);
 
         gastosFixosAdapter = new ListGastosFixosAdapter(this);
@@ -103,6 +86,29 @@ public class ConfiguracaoActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_configuracao, menu);
         return true;
+    }
+
+    private void obterPreferencias(){
+        configuracoes = getSharedPreferences("preferencies", Context.MODE_PRIVATE);
+        valorMensalidade = configuracoes.getString("valor_mensalidade", "Nenhum valor salvo");
+        saldo = configuracoes.getString("valor_saldo", "0");
+        mesCalculado = configuracoes.getString("mes_calculado", "-1");
+        previsaoReceitasDoMes = configuracoes.getString("receitas_do_mes", "0");
+        previsaoDespesasDoMes = configuracoes.getString("despesas_do_mes", "0");
+    }
+
+    private void setTextosIniciais(){
+        editValorMensalidade = (EditText) findViewById(R.id.ed_valor_mensalidade);
+        editValorMensalidade.setHint(valorMensalidade);
+
+        editSaldo = (EditText) findViewById(R.id.ed_saldo);
+        editSaldo.setHint(saldo);
+
+        editReceitasDoMes = (EditText) findViewById(R.id.ed_previsao_receita);
+        editReceitasDoMes.setHint(previsaoReceitasDoMes);
+
+        editDespesasDoMes = (EditText) findViewById(R.id.ed_previsao_despesa);
+        editDespesasDoMes.setHint(previsaoDespesasDoMes);
     }
 
     private void calcularReceitasDespesas() {
@@ -137,6 +143,7 @@ public class ConfiguracaoActivity extends AppCompatActivity {
         }
     }
 
+    //TODO: usar generics e/ou type para ter apenas um metodo
     private long calcularPrevisaoDespesasPontuais(ArrayList<GastoPontual> listaGastosPontuais) {
         long previsaoDespesasPontuais = 0;
         for(GastoPontual gastoPontual : listaGastosPontuais){

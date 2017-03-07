@@ -15,12 +15,15 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Locale;
 
 import br.com.kuka.controleassociados.R;
 import br.com.kuka.controleassociados.model.GastoFixo;
 import br.com.kuka.controleassociados.model.GastoFixoContract;
+import br.com.kuka.controleassociados.model.GastoPontual;
 import br.com.kuka.controleassociados.util.DBGastoFixoHelper;
 
 /**
@@ -30,6 +33,7 @@ import br.com.kuka.controleassociados.util.DBGastoFixoHelper;
 public class ListGastosFixosAdapter extends BaseAdapter {
 
     ArrayList<GastoFixo> listaGastosFixos;
+    ArrayList<GastoFixo> listaGastosFixosMensal;
     LayoutInflater inflater;
     DBGastoFixoHelper dbGastoFixoHelper;
     DateFormat format = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
@@ -82,8 +86,17 @@ public class ListGastosFixosAdapter extends BaseAdapter {
     }
 
     public ArrayList<GastoFixo> getListaGastosFixos(int mes, int ano){
-        //TODO
-        return null;
+        ArrayList<GastoFixo> listaGastosFixosMensal = new ArrayList<>();
+
+        Calendar dataCriacao = new GregorianCalendar();
+
+        for(GastoFixo gastoFixo : listaGastosFixos){
+            dataCriacao.setTime(gastoFixo.dataCriacao);
+            if(dataCriacao.get(Calendar.MONTH) == mes && dataCriacao.get(Calendar.YEAR) == ano){
+                listaGastosFixosMensal.add(gastoFixo);
+            }
+        }
+        return listaGastosFixosMensal;
     }
 
     public void addGastoFixo(GastoFixo gastoFixo){
