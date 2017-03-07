@@ -206,7 +206,6 @@ public class ConfiguracaoActivity extends AppCompatActivity {
                     Log.i("CONFIGURACAO", "Erro no parser da data!");
                     e.printStackTrace();
                 }
-
                 gastosFixosAdapter.addGastoFixo(new GastoFixo(descricao, Long.parseLong(valor), dataCriacao));
 
             } else if (requestCode == CODIGO_NOVO_GASTO_PONTUAL){
